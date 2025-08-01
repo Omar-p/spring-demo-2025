@@ -1,0 +1,8 @@
+services:
+  postgres:
+    image: 'postgres:17.5'
+    environment:
+      - 'POSTGRES_DB=customers'
+      - 'POSTGRES_PASSWORD=secret'
+    ports:
+      - '5432:5432'

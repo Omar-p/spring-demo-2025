@@ -1,8 +1,25 @@
 services:
   postgres:
+    container_name: 'postgres'
     image: 'postgres:17.5'
     environment:
       - 'POSTGRES_DB=customers'
       - 'POSTGRES_PASSWORD=secret'
     ports:
       - '5432:5432'
+  prometheus:
+    container_name: 'prometheus'
+    image: 'prom/prometheus:v3.5.0'
+    ports:
+      - '9090:9090'
+    command:
+        - '--config.file=/etc/prometheus/prometheus.yaml'
+    volumes:
+      - './docker/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+  grafana:
+    container_name: 'grafana'
+    image: 'grafana/grafana:12.2.0-16636675413'
+    ports:
+      - '3000:3000'
